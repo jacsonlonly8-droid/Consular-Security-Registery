@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Federal Consular Registry | Canada</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;900&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ircc-red: #D80621;
+            --deep-navy: #001A35;
+            --royal-gold: #D4AF37;
+            --glass: rgba(255, 255, 255, 0.9);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            background: #F0F2F5;
+            color: var(--deep-navy);
+            overflow-x: hidden;
+        }
+
+        /* Institutional Header */
+        .premium-header {
+            background: #FFF;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid var(--ircc-red);
+            position: sticky;
+            top: 0; z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .canada-symbol { font-size: 24px; color: var(--ircc-red); font-weight: 900; }
+        .gov-title { font-weight: 700; font-size: 1rem; line-height: 1.1; }
+
+        /* Biometric Loading Overlay */
+        #biometric-scanner {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--deep-navy);
+            z-index: 3000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .scan-line {
+            width: 250px; height: 2px;
+            background: var(--royal-gold);
+            box-shadow: 0 0 20px var(--royal-gold);
+            position: absolute;
+            animation: moveScan 2s infinite ease-in-out;
+        }
+
+        @keyframes moveScan {
+            0% { top: 35%; }
+            50% { top: 65%; }
+            100% { top: 35%; }
+        }
+
+        /* Form Styling */
+        .wrapper { max-width: 520px; margin: 0 auto; padding: 20px 15px 120px; }
+        .section-header { font-family: 'Cinzel', serif; font-size: 0.75rem; color: var(--royal-gold); letter-spacing: 3px; margin: 40px 0 15px; font-weight: 900; text-transform: uppercase; }
+
+        .q-card {
+            background: white; border-radius: 12px; padding: 25px; margin-bottom: 15px;
+            border: 1px solid #E5EAF0; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative; overflow: hidden;
+        }
+
+        .q-card:focus-within { transform: translateY(-4px); border-color: var(--ircc-red); box-shadow: 0 20px 40px rgba(0,26,53,0.1); }
+        label { display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 15px; color: #2D3748; }
+
+        input, select, textarea { width: 100%; padding: 16px; border: 1.5px solid #E2E8F0; border-radius: 10px; font-size: 1rem; background: #F8FAFC; font-family: inherit; }
+
+        .btn-submit {
+            width: 100%; background: var(--deep-navy); color: white; padding: 24px;
+            border: none; border-radius: 12px; font-weight: 700; font-size: 1.1rem;
+            letter-spacing: 2px; cursor: pointer; margin-top: 30px;
+        }
+
+        .lang-switch {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: white; border: 2.5px solid var(--deep-navy); padding: 12px 35px;
+            border-radius: 50px; font-weight: 700; z-index: 1001;
+        }
+
+        /* Success Experience */
+        #success-view {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; z-index: 4000; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center; padding: 30px;
+        }
+
+        .user-greeting { font-family: 'Cinzel', serif; color: var(--ircc-red); font-size: 1.8rem; margin-bottom: 5px; }
+        .case-pill {
+            background: #F0FDF4; color: #166534; padding: 15px 40px; border-radius: 12px;
+            font-family: monospace; font-size: 1.8rem; font-weight: 700; border: 2px dashed #22C55E; margin: 20px 0;
+        }
+
+        .btn-print {
+            background: none; border: 1.5px solid #CBD5E0; padding: 10px 20px; border-radius: 8px;
+            font-size: 0.8rem; font-weight: 600; color: #4A5568; cursor: pointer; margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<button class="lang-switch" onclick="switchLang()" id="lBtn">አማርኛ ይምረጡ</button>
+
+<div id="biometric-scanner">
+    <div class="scan-line"></div>
+    <div style="font-size: 4rem; margin-bottom: 20px;">🛡️</div>
+    <h2 id="stext">ENCRYPTING BIOGRAPHIC DATA</h2>
+    <p style="opacity: 0.6; font-size: 0.8rem; letter-spacing: 2px;">SECURE SERVER CONNECTION...</p>
+</div>
+
+<div class="premium-header">
+    <div class="gov-seal">
+        <div class="canada-symbol">🍁</div>
+        <div class="gov-title">Government of Canada<br><span style="font-weight:300; font-size: 0.7rem; color: #666;">Gouvernement du Canada</span></div>
+    </div>
+    <div style="text-align: right; font-size: 0.6rem; color: var(--royal-gold); font-weight: 700;">LEVEL 4 SECURITY<br>ADDIS ABABA MISSION</div>
+</div>
+
+<div class="wrapper" id="formContent">
+    <div style="text-align: center; margin: 30px 0;">
+        <h1 style="font-family: 'Cinzel', serif; font-size: 1.5rem;">Consular Security Registry</h1>
+        <p style="font-size: 0.7rem; letter-spacing: 2px; color: #718096;">VERIFICATION PROTOCOL | ETH-CAN v9.3</p>
+    </div>
+
+    <form id="visaForm">
+        <div class="section-header" id="h1">Protocol I: Personal Identity</div>
+        <div class="q-card"><label class="q" data-en="1. Full Surname" data-am="1. የአያት ስም (በፓስፖርት መሠረት)">1. Full Surname</label><input type="text" id="surname" required></div>
+        <div class="q-card"><label class="q" data-en="2. Legal Given Names" data-am="2. የግል ስም">2. Legal Given Names</label><input type="text" id="givenName" required></div>
+        <div class="q-card"><label class="q" data-en="3. Date of Birth" data-am="3. የልደት ቀን">3. Date of Birth</label><input type="date" required></div>
+        <div class="q-card"><label class="q" data-en="4. Place of Birth" data-am="4. የተወለዱበት ስፍራ">4. Place of Birth</label><input type="text"></div>
+        <div class="q-card"><label class="q" data-en="5. Gender Identity" data-am="5. ጾታ">5. Gender Identity</label><select><option>Male / ወንድ</option><option>Female / ሴት</option></select></div>
+        <div class="q-card"><label class="q" data-en="6. National ID Reference" data-am="6. የመታወቂያ ቁጥር">6. National ID Reference</label><input type="text"></div>
+
+        <div class="section-header" id="h2">Protocol II: Personal Profile</div>
+        <div class="q-card"><label class="q" data-en="7. Marital Status" data-am="7. የጋብቻ ሁኔታ">7. Marital Status</label><select><option>Single</option><option>Married</option><option>Divorced</option></select></div>
+        <div class="q-card"><label class="q" data-en="8. Number of Children" data-am="8. የልጆች ብዛት">8. Number of Children</label><input type="number"></div>
+        <div class="q-card"><label class="q" data-en="9. Native Language" data-am="9. የአፍ መፍቻ ቋንቋ">9. Native Language</label><input type="text" value="Amharic"></div>
+        <div class="q-card"><label class="q" data-en="10. Current Height (cm)" data-am="10. ቁመት (በሴንቲሜትር)">10. Current Height (cm)</label><input type="number"></div>
+        <div class="q-card"><label class="q" data-en="11. Distinguishing Body Marks" data-am="11. ልዩ ምልክት">11. Distinguishing Body Marks</label><input type="text"></div>
+        <div class="q-card"><label class="q" data-en="12. Religion" data-am="12. ሃይማኖት">12. Religion</label><input type="text"></div>
+
+        <div class="section-header" id="h3">Protocol III: Security Registry</div>
+        <div class="q-card"><label class="q" data-en="13. Passport Availability" data-am="13. የሚሰራ ፓስፖርት አለዎት?">13. Passport Availability</label><select><option>Yes / አዎ</option><option>Pending / በሂደት ላይ</option></select></div>
+        <div class="q-card"><label class="q" data-en="14. Passport Identification #" data-am="14. የፓስፖርት ቁጥር">14. Passport Identification #</label><input type="text"></div>
+        <div class="q-card"><label class="q" data-en="15. Date of Passport Expiry" data-am="15. ፓስፖርቱ የሚያበቃበት ቀን">15. Date of Passport Expiry</label><input type="date"></div>
+        <div class="q-card"><label class="q" data-en="16. Previous Overseas Travel" data-am="16. የውጭ ሀገር የጉዞ ታሪክ">16. Previous Overseas Travel</label><input type="text"></div>
+        <div class="q-card"><label class="q" data-en="17. History of Visa Denials" data-am="17. የቪዛ ክልከላ ታሪክ">17. History of Visa Denials</label><select><option>None</option><option>Yes</option></select></div>
+        <div class="q-card"><label class="q" data-en="18. English Fluency" data-am="18. የእንግሊዘኛ ቋንቋ ችሎታ">18. English Fluency</label><select><option>High</option><option>Medium</option><option>Basic</option></select></div>
+
+        <div class="section-header" id="h4">Protocol IV: Connectivity & Agency</div>
+        <div class="q-card"><label class="q" data-en="19. Direct Mobile Number" data-am="19. ዋና ስልክ ቁጥር">19. Direct Mobile Number</label><input type="tel" required></div>
+        <div class="q-card"><label class="q" data-en="20. Alternate/Home Number" data-am="20. ሌላ አማራጭ ስልክ">20. Alternate/Home Number</label><input type="tel"></div>
+        <div class="q-card"><label class="q" data-en="21. Formal Email Address" data-am="21. የኢሜል አድራሻ">21. Formal Email Address</label><input type="email" required></div>
+        <div class="q-card"><label class="q" data-en="22. Target City in Canada" data-am="22. በካናዳ ለመኖር የመረጡት ከተማ">22. Target City in Canada</label><input type="text"></div>
+        <div class="q-card"><label class="q" data-en="23. Emergency Contact Name" data-am="23. የአደጋ ጊዜ ተጠሪ ስም">23. Emergency Contact Name</label><input type="text"></div>
+        <div class="q-card"><label class="q" data-en="24. Contact Relationship" data-am="24. ከተጠሪው ጋር ያለዎት ዝምድና">24. Contact Relationship</label><input type="text"></div>
+        <div class="q-card"><label class="q" data-en="25. Personal Declaration of Intent" data-am="25. ለምን መሄድ እንደፈለጉ ይግለጹ">25. Personal Declaration of Intent</label><textarea rows="3"></textarea></div>
+        
+        <div class="q-card" style="border: 2px solid var(--royal-gold);">
+            <label class="q" data-en="26. Assisting Organization / Agent Name" data-am="26. ይህን ቅጽ እንዲሞሉ የረዳዎት ሰው ወይም ድርጅት ስም">26. Assisting Organization / Agent Name</label>
+            <input type="text" placeholder="Type name here (e.g. Willy Travel)" required>
+        </div>
+
+        <button type="submit" class="btn-submit" id="sBtn">AUTHORIZE TRANSMISSION</button>
+    </form>
+</div>
+
+<div id="success-view">
+    <div style="color: var(--ircc-red); font-size: 4rem;">🍁</div>
+    <div class="user-greeting" id="userNameDisplay">ACCESS GRANTED</div>
+    <h2 id="f1" style="font-family: 'Outfit', sans-serif; font-weight: 300; margin-top: 0;">Filing Status: Confirmed</h2>
+    <p id="f2" style="max-width: 300px; color: #4A5568; font-size: 0.9rem;">Your profile has been processed by the Global Registry. Your individual Reference ID:</p>
+    <div class="case-pill" id="caseID">CAN-00000-ET</div>
+    <div style="font-size: 0.8rem; color: #718096; text-transform: uppercase; letter-spacing: 1px;">Security Tier: <span style="color: #166534; font-weight: 700;">Verified Active</span></div>
+    
+    <button class="btn-print" onclick="window.print()">PRINT REGISTRY RECEIPT</button>
+
+    <div style="width: 50px; height: 1px; background: #DDD; margin: 30px 0;"></div>
+    <p><b>የክብሮት ሰላምታ።</b></p>
+    <p id="finalAmharic">መረጃዎ በሰላም ደርሶ ተመዝግቧል። በቅርቡ በስልክ እናገኝዎታለን።</p>
+</div>
+
+<script>
+    let mode = 'en';
+    function switchLang() {
+        const qs = document.querySelectorAll('.q');
+        const lBtn = document.getElementById('lBtn');
+        const sBtn = document.getElementById('sBtn');
+        const h1 = document.getElementById('h1');
+        const h2 = document.getElementById('h2');
+        const h3 = document.getElementById('h3');
+        const h4 = document.getElementById('h4');
+
+        if(mode === 'en') {
+            qs.forEach(q => q.textContent = q.getAttribute('data-am'));
+            lBtn.textContent = "Switch to English";
+            sBtn.textContent = "መረጃውን በይፋ ያስገቡ";
+            h1.textContent = "ክፍል 1፡ ግላዊ ማንነት";
+            h2.textContent = "ክፍል 2፡ የግል ሁኔታ";
+            h3.textContent = "ክፍል 3፡ የደህንነት ማረጋገጫ";
+            h4.textContent = "ክፍል 4፡ ግንኙነት እና ድርጅት";
+            mode = 'am';
+        } else {
+            qs.forEach(q => q.textContent = q.getAttribute('data-en'));
+            lBtn.textContent = "አማርኛ ይምረጡ";
+            sBtn.textContent = "AUTHORIZE TRANSMISSION";
+            h1.textContent = "Protocol I: Personal Identity";
+            h2.textContent = "Protocol II: Personal Profile";
+            h3.textContent = "Protocol III: Security Registry";
+            h4.textContent = "Protocol IV: Connectivity & Agency";
+            mode = 'en';
+        }
+    }
+
+    document.getElementById('visaForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const scanner = document.getElementById('biometric-scanner');
+        const inputName = document.getElementById('givenName').value;
+        const rand = "CAN-" + Math.floor(10000 + Math.random() * 90000) + "-ET";
+        
+        scanner.style.display = 'flex';
+        
+        setTimeout(() => { document.getElementById('stext').innerText = "VERIFYING IDENTITY..."; }, 1500);
+        setTimeout(() => { document.getElementById('stext').innerText = "SYNCING WITH GLOBAL REGISTRY..."; }, 2500);
+
+        setTimeout(() => {
+            document.getElementById('caseID').textContent = rand;
+            document.getElementById('userNameDisplay').innerText = inputName.toUpperCase();
+            
+            if(mode === 'am') {
+                document.getElementById('f1').innerText = "ምዝገባው ተጠናቅቋል";
+                document.getElementById('f2').innerText = "የእርስዎ መረጃ በዓለም አቀፍ የቆንስላ ማህደር ውስጥ በተሳካ ሁኔታ ተካቷል። መለያ ቁጥርዎ፦";
+            }
+
+            document.getElementById('formContent').style.display = 'none';
+            scanner.style.display = 'none';
+            document.getElementById('success-view').style.display = 'flex';
+            window.scrollTo(0,0);
+        }, 4500);
+    });
+</script>
+
+</body>
+</html>
